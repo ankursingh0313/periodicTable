@@ -8,11 +8,10 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #2f2f2f;
+      background-color: #dcdcdc;
       font-family: sans-serif;
-      color: #fff;
+      color: #2f2f2f;
       text-align: center;
-    }
     h1 {
       margin: 20px 0;
     }
@@ -20,15 +19,17 @@
     #periodicTable {
       display: grid;
       grid-template-columns: repeat(18, 1fr);
-      grid-auto-rows: 80px; /* row height */
+      /* grid-template-rows: repeat(18, 1fr); */
+      grid-auto-rows: 10%;
+      /* grid-auto-columns: 40px; */
       gap: 5px;
-      max-width: 1200px;
-      margin: 0 auto 40px auto;
-      padding: 0 10px;
+      padding: 5px 20px;
+      /* background-color: #deb1b1; */
+      /* margin: 0 auto 40px auto; */
     }
     /* Each element cell */
     .element {
-      background: #424242;
+      background: #ffffff;
       border-radius: 4px;
       display: flex;
       flex-direction: column;
@@ -36,15 +37,17 @@
       padding: 5px;
       transition: transform 0.2s, background-color 0.2s;
       border: 1px solid #555;
+      box-shadow: 0 0 2px #555;
+      cursor: pointer;
     }
     .element:hover {
       transform: scale(1.05);
-      background-color: #616161;
+      background-color: #e0f7fa;
     }
     .atomic-number {
       font-size: 10px;
       text-align: left;
-      color: #bbb;
+      color: #000000;
     }
     .symbol {
       font-size: 18px;
@@ -53,12 +56,12 @@
     }
     .name {
       font-size: 11px;
-      color: #ccc;
+      color: #3a3a3a;
     }
     .atomic-mass {
       font-size: 10px;
       text-align: right;
-      color: #aaa;
+      color: #3a3a3a;
     }
   </style>
 </head>
