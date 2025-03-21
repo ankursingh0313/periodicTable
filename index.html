@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Periodic Table (Standard Layout)</title>
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
     <script src="./db.js"></script>
     <style>
       body {
@@ -35,7 +39,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 10px 5px;
+        padding: 5px 5px;
         transition: transform 0.2s, background-color 0.2s;
         border: 1px solid #555;
         box-shadow: 0 0 2px #555;
@@ -68,9 +72,18 @@
         background-color: #fff5;
         border-radius: 4px;
         display: flex;
-        border: 1px solid #555;
-        box-shadow: 0 0 2px #555, 0 0 5px #5555;
-        padding: 10px 5px;
+        border: 0px solid #555;
+        box-shadow: 0 0 2px #5555, 0 0 5px #5553;
+        padding: 5px 5px;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+      }
+      .active {
+        box-shadow: inset 0 0 2px #000, inset 0 0 5px #003;
+        border-color: #000;
+        background-color: #fff !important;
+        outline-width: 4px;
+        outline-style: dashed;
       }
       .reactive_non-metals {
         background-color: #8282e5;
@@ -101,6 +114,82 @@
       }
       .unknown_properties {
         background-color: #a7a6a6;
+      }
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+      }
+
+      .card-symbol {
+        font-size: 30px;
+        font-weight: bold;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: #4dc2ff;
+      }
+      .element-name {
+        background-color: #4dc2ff;
+        margin-top: 5px;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-weight: bold;
+        border: 1px solid #00000055;
+      }
+      .middle {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 0 5px;
+        font-size: 12px;
+      }
+
+      .info-columns {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        text-align: left;
+      }
+
+      .summary {
+        font-size: 10px;
+        margin-top: 10px;
+        /* background-color: purple; */
+        text-align: justify;
+      }
+
+      .right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        /* background-color: #04a7ff; */
+      }
+
+      .bohr-model {
+        display: flex;
+        width: 98%;
+        aspect-ratio: 1/1;
+        background-color: #000;
+        border-radius: 5px;
+        /* margin-top: 5px; */
       }
     </style>
   </head>
@@ -1189,14 +1278,19 @@
     </script>
 
     <script>
-      const data = JSON.parse(
-        document.getElementById("elementData").textContent
-      );
+      var data = {};
+      // try {
+      console.log(document.getElementById("elementData").textContent);
+      data = JSON.parse(document.getElementById("elementData").textContent);
+      // } catch (e) {
+      // console.log("err: ", e);
+      // }
+
+      var active = undefined;
       const elements = data.elements;
       const table = document.getElementById("periodicTable");
-
       // Create a cell for each element with the specified row (ypos) and column (xpos)
-      elements.forEach((element) => {
+      elements?.forEach((element) => {
         const cell = document.createElement("div");
         let classes = element.props ? element.props : [];
         classes.push("element");
@@ -1227,7 +1321,134 @@
         const atomicNumber = parseInt(e.currentTarget.id);
         let elemntInfo = getInfo(atomicNumber ? atomicNumber : -1);
         console.log(info, elemntInfo, atomicNumber);
+        if (active) {
+          active.classList.remove("active");
+        }
+        active = e.currentTarget;
+        active.classList.add("active");
+        showInfo(elemntInfo, info);
       }
+      function showInfo(element, card) {
+        // Left Section
+        const leftDiv = document.createElement("div");
+        leftDiv.classList.add("left");
+        leftDiv.style.backgroundImage = `url(${element.image.url})`;
+        const symbolDiv = document.createElement("div");
+        symbolDiv.classList.add("card-symbol");
+        symbolDiv.id = "symbol";
+        // symbolDiv.style.backgroundColor = "#4dc2ff";
+        symbolDiv.style.color = "black";
+        symbolDiv.textContent = element.symbol;
+
+        const elementName = document.createElement("div");
+        elementName.classList.add("element-name");
+        elementName.textContent = element.name;
+
+        leftDiv.appendChild(symbolDiv);
+        leftDiv.appendChild(elementName);
+
+        // Middle Section
+        const middleDiv = document.createElement("div");
+        middleDiv.classList.add("middle");
+
+        const infoColumns = document.createElement("div");
+        infoColumns.classList.add("info-columns");
+
+        const columnData = [
+          [
+            // { id: "name", text: `${element.name} (${element.symbol})` },
+            { id: "atomicNumber", text: `Atomic Number: ${element.number}` },
+            { id: "category", text: `Category: ${element.category}` },
+            { id: "phase", text: `Phase: ${element.phase}` },
+            { id: "density", text: `Density: ${element.density} g/L` },
+            { id: "boilingPoint", text: `Boiling Point: ${element.boil} K` },
+          ],
+          [
+            { id: "meltingPoint", text: `Melting Point: ${element.melt} K` },
+            {
+              id: "electronConfig",
+              text: `Electron Configuration: ${element.electron_configuration_semantic}`,
+            },
+            {
+              id: "electronegativity",
+              text: `Electronegativity: ${element.electronegativity_pauling}`,
+            },
+            {
+              id: "molarHeat",
+              text: `Molar Heat: ${element.molar_heat} J/mol·K`,
+            },
+          ],
+          [
+            {
+              id: "discoveredBy",
+              text: `Discovered By: ${element.discovered_by || "Unknown"}`,
+            },
+            {
+              id: "namedBy",
+              text: `Named By: ${element.named_by || "Unknown"}`,
+            },
+            {
+              id: "ionizationEnergy",
+              text: `Ionization Energy: ${element.ionization_energies[0]} kJ/mol`,
+            },
+            { id: "shells", text: `Shells: ${element.shells.join(", ")}` },
+          ],
+        ];
+
+        columnData.forEach((columnItems) => {
+          const column = document.createElement("div");
+          column.classList.add("column");
+          columnItems.forEach((item) => {
+            const div = document.createElement("div");
+            div.id = item.id;
+            div.textContent = item.text;
+            column.appendChild(div);
+          });
+          infoColumns.appendChild(column);
+        });
+
+        middleDiv.appendChild(infoColumns);
+
+        const summaryDiv = document.createElement("div");
+        summaryDiv.classList.add("summary");
+        summaryDiv.id = "summary";
+        summaryDiv.textContent = element.summary;
+        middleDiv.appendChild(summaryDiv);
+
+        // Right Section
+        const rightDiv = document.createElement("div");
+        rightDiv.classList.add("right");
+
+        const bohrModel = document.createElement("model-viewer");
+        bohrModel.classList.add("bohr-model");
+        bohrModel.id = "bohrModel";
+        bohrModel.src = element.bohr_model_3d;
+        bohrModel.alt = "Bohr Model 3D";
+        bohrModel.setAttribute("auto-rotate", "");
+        bohrModel.setAttribute("camera-controls", "");
+        bohrModel.setAttribute("camera-orbit", "0deg 50deg 1.5m"); // Zoomed in
+        bohrModel.setAttribute("field-of-view", "20deg"); // Adjust zoom perspective
+
+        rightDiv.appendChild(bohrModel);
+        // Rotate Manually
+
+        // Append all sections to element card
+        card.innerHTML = "";
+        card.appendChild(leftDiv);
+        card.appendChild(middleDiv);
+        card.appendChild(rightDiv);
+      }
+      // const bohrModel = document.getElementById("bohrModel");
+      // let angle = 0;
+      // function rotateModel() {
+      //   angle += 1;
+      //   if (bohrModel) {
+      //     const bohrModel = document.getElementById("bohrModel");
+      //     let angle = 0;
+      //   }
+      //   requestAnimationFrame(rotateModel);
+      // }
+      // rotateModel();
     </script>
   </body>
 </html>
