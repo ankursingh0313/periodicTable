@@ -1278,14 +1278,19 @@
     </script>
 
     <script>
-      const data = JSON.parse(
-        document.getElementById("elementData").textContent
-      );
+      var data = {};
+      // try {
+      console.log(document.getElementById("elementData").textContent);
+      data = JSON.parse(document.getElementById("elementData").textContent);
+      // } catch (e) {
+      // console.log("err: ", e);
+      // }
+
       var active = undefined;
       const elements = data.elements;
       const table = document.getElementById("periodicTable");
       // Create a cell for each element with the specified row (ypos) and column (xpos)
-      elements.forEach((element) => {
+      elements?.forEach((element) => {
         const cell = document.createElement("div");
         let classes = element.props ? element.props : [];
         classes.push("element");
