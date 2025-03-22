@@ -12,13 +12,10 @@ body {
   #periodicTable {
     display: grid;
     grid-template-columns: repeat(18, 1fr);
-    /* grid-template-rows: repeat(18, 1fr); */
     grid-auto-rows: 10%;
-    /* grid-auto-columns: 40px; */
     gap: 5px;
     padding: 0px 20px;
-    /* background-color: #deb1b1; */
-    /* margin: 0 auto 40px auto; */
+    min-height: fit-content;
   }
   /* Each element cell */
   .element {
@@ -371,4 +368,46 @@ body {
       width: 100%;
     }
   }
+}
+
+.details {
+  margin: 20px 20px;
+  padding: 10px 5px;
+  width: fit-content;
+  justify-content: left;
+}
+.d-visuals {
+  width: fit-content;
+  margin: 5px 0px;
+}
+.d-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0px;
+  justify-content: left;
+  width: fit-content;
+}
+.d-v {
+  display: inline-block;
+}
+.d-image,
+.d-model {
+  height: 200px;
+  width: 200px;
+  border-radius: 5px;
+}
+.d-model {
+  background-color: #000;
+}
+.d-info {
+  font-size: 18;
+  width: fit-content;
+  text-align: left;
+}
+.h {
+  display: none;
+}
+hr {
+  margin-top: 70px;
+  margin-bottom: 0px;
 }
