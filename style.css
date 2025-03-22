@@ -332,6 +332,14 @@ body {
     .info-columns {
       gap: 2px;
     }
+    .d-image,
+    .d-model {
+      height: 150px;
+      width: 150px;
+    }
+    .title {
+      font-size: 25px;
+    }
   }
 
   /* Further adjustments for extra small screens (phones) */
