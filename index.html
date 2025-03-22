@@ -12,203 +12,6 @@
     ></script>
     <script src="./db.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <!-- <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #dcdcdc;
-        font-family: sans-serif;
-        color: #2f2f2f;
-        text-align: center;
-      h1 {
-        margin: 20px 0;
-      }
-      /* Main grid: 18 columns (for groups), 9 rows total (7 main periods + 2 for f-block) */
-      #periodicTable {
-        display: grid;
-        grid-template-columns: repeat(18, 1fr);
-        /* grid-template-rows: repeat(18, 1fr); */
-        grid-auto-rows: 10%;
-        /* grid-auto-columns: 40px; */
-        gap: 5px;
-        padding: 0px 20px;
-        /* background-color: #deb1b1; */
-        /* margin: 0 auto 40px auto; */
-      }
-      /* Each element cell */
-      .element {
-        background: #ffffff;
-        border-radius: 4px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 5px 5px;
-        transition: transform 0.2s, background-color 0.2s;
-        border: 1px solid #555;
-        box-shadow: 0 0 2px #555;
-        cursor: pointer;
-      }
-      .element:hover {
-        transform: scale(1.05);
-        background-color: #e0f7fa;
-      }
-      .atomic-number {
-        font-size: 10px;
-        text-align: left;
-        color: #000000;
-      }
-      .symbol {
-        font-size: 18px;
-        font-weight: bold;
-        margin: 0 auto;
-      }
-      .name {
-        font-size: 11px;
-        color: #3a3a3a;
-      }
-      .atomic-mass {
-        font-size: 10px;
-        text-align: right;
-        color: #3a3a3a;
-      }
-      .info {
-        background-color: #fff5;
-        border-radius: 4px;
-        display: flex;
-        border: 0px solid #555;
-        box-shadow: 0 0 2px #5555, 0 0 5px #5553;
-        padding: 5px 5px;
-        display: grid;
-        grid-template-columns: 1fr 3fr 1fr;
-      }
-      .active {
-        box-shadow: inset 0 0 2px #000, inset 0 0 5px #003;
-        border-color: #000;
-        background-color: #fff !important;
-        outline-width: 4px;
-        outline-style: dashed;
-      }
-      .reactive_non-metals {
-        background-color: #8282e5;
-      }
-      .alkali_metals {
-        background-color: #82e5e0;
-      }
-      .alkaline_earth_metals {
-        background-color: #e5b282;
-      }
-      .transition_metals {
-        background-color: #d9e582;
-      }
-      .post-transition_metals {
-        background-color: #82e5b0;
-      }
-      .metalloids {
-        background-color: #aa8e8e;
-      }
-      .noble_gases {
-        background-color: #04a7ff;
-      }
-      .lanthanides {
-        background-color: #eb71f6;
-      }
-      .actinides {
-        background-color: #f671a0;
-      }
-      .unknown_properties {
-        background-color: #a7a6a6;
-      }
-
-      .left {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        border-radius: 5px;
-      }
-
-      .card-symbol {
-        font-size: 30px;
-        font-weight: bold;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        background-color: #4dc2ff;
-      }
-      .element-name {
-        background-color: #4dc2ff;
-        margin-top: 5px;
-        padding: 1px 5px;
-        border-radius: 3px;
-        font-weight: bold;
-        border: 1px solid #00000055;
-      }
-      .middle {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        padding: 0 5px;
-        font-size: 12px;
-      }
-
-      .info-columns {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        align-items: flex-start;
-      }
-
-      .column {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        text-align: left;
-      }
-
-      .summary {
-        font-size: 10px;
-        margin-top: 10px;
-        /* background-color: purple; */
-        text-align: justify;
-      }
-
-      .right {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        /* background-color: #04a7ff; */
-      }
-
-      .bohr-model {
-        display: flex;
-        width: 98%;
-        aspect-ratio: 1/1;
-        background-color: #000;
-        border-radius: 5px;
-        /* margin-top: 5px; */
-      }
-      .title-container {
-        margin: 10px auto;
-      }
-      .title {
-        font-size: 40px;
-        font-weight: 600;
-      }
-      .author {
-        color: #9b9a9a;
-        font-size: 12px;
-      }
-      .author > a {
-        color: #6c6ea1
-      }
-    </style> -->
   </head>
   <body>
     <div class="title-container">
@@ -219,7 +22,28 @@
       </div>
     </div>
     <div id="periodicTable"></div>
-
+    <hr />
+    <div class="h details">
+      <div class="d-name"></div>
+      <div class="d-visuals">
+        <div class="d-v">
+          <img id="d-image" class="d-image" src="" alt="" />
+        </div>
+        <div class="d-v">
+          <model-viewer
+            id="d-model"
+            class="d-model"
+            src=""
+            shadow-intensity="1"
+            camera-controls
+            touch-action="pan-y"
+            field-of-view="20deg"
+            camera-orbit="0deg 50deg 1.5m"
+          ></model-viewer>
+        </div>
+      </div>
+      <div class="d-info"></div>
+    </div>
     <!-- JSON Data: all 118 elements with standard layout positions -->
     <script id="elementData" type="application/json">
       {
@@ -1459,7 +1283,108 @@
         card.appendChild(leftDiv);
         card.appendChild(middleDiv);
         card.appendChild(rightDiv);
+        showDetails(element);
       }
+
+      function showDetails(element) {
+        console.log(element);
+        // name
+        document.querySelector(".details").classList.remove("h");
+        document.querySelector(
+          ".d-name"
+        ).innerText = `${element.name} (${element.symbol})`;
+        //image
+        document.getElementById("d-image").src = element.image.url;
+        document.getElementById("d-model").src = element.bohr_model_3d;
+
+        // info
+        const columnData = [
+          {
+            id: "atomicNumber",
+            text: `<b> Atomic Number:</b> ${element.number}`,
+          },
+          { id: "category", text: `<b> Category:</b> ${element.category}` },
+          { id: "block", text: `<b> Block:</b> ${element.block}` },
+          {
+            id: "appearance",
+            text: `<b> Appearance:</b> ${element.appearance}`,
+          },
+          { id: "phase", text: `<b> Phase:</b> ${element.phase}` },
+          { id: "density", text: `<b> Density:</b> ${element.density} g/L` },
+          {
+            id: "boilingPoint",
+            text: `<b> Boiling Point:</b> ${element.boil} K`,
+          },
+          {
+            id: "meltingPoint",
+            text: `<b> Melting Point:</b> ${element.melt} K`,
+          },
+          {
+            id: "electronConfig",
+            text: `<b> Electron Configuration:</b> ${element.electron_configuration_semantic}`,
+          },
+          {
+            id: "electronegativity",
+            text: `<b> Electronegativity:</b> ${element.electronegativity_pauling}`,
+          },
+          {
+            id: "molarHeat",
+            text: `<b> Molar Heat:</b> ${element.molar_heat} J/mol·K`,
+          },
+          {
+            id: "discoveredBy",
+            text: `<b> Discovered By:</b> ${
+              element.discovered_by || "Unknown"
+            }`,
+          },
+          {
+            id: "namedBy",
+            text: `<b> Named By:</b> ${element.named_by || "Unknown"}`,
+          },
+          {
+            id: "ionizationEnergy",
+            text: `<b> Ionization Energy:</b> ${element.ionization_energies[0]} kJ/mol`,
+          },
+          {
+            id: "electron_affinity",
+            text: `<b> Electron Affinity:</b> ${element.electron_affinity}`,
+          },
+          {
+            id: "group",
+            text: `<b> Group:</b> ${element.group}`,
+          },
+          {
+            id: "electron_configuration",
+            text: `<b> Electron Configuration:</b> ${element.electron_configuration
+              .split(" ")
+              .join(", ")}`,
+          },
+          {
+            id: "shells",
+            text: `<b> Shells:</b> ${element.shells.join(", ")}`,
+          },
+          { id: "summary", text: `<b> Summary:</b> ${element.summary}` },
+          {
+            id: "source",
+            text: `${element.source}`,
+          },
+        ];
+        const infoDiv = document.querySelector(".d-info");
+        infoDiv.innerHTML = "";
+        columnData.forEach((item) => {
+          const div = document.createElement("div");
+          div.classList.add("d-info-e");
+          div.id = item.id;
+          if (item.id == "source") {
+            div.innerHTML = `<b>Source: </b><a href="${item.text}" target="blank">Wikipedia</a>`;
+          } else {
+            div.innerHTML = item.text;
+          }
+          // div.textContent = item.text;
+          infoDiv.appendChild(div);
+        });
+      }
+
       // const bohrModel = document.getElementById("bohrModel");
       // let angle = 0;
       // function rotateModel() {
